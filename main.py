@@ -1,4 +1,5 @@
 import os
+import argparse
 from pytube.__main__ import YouTube
 import requests
 from mutagen.easyid3 import EasyID3
@@ -8,9 +9,15 @@ from moviepy.editor import VideoFileClip
 
 def main():
 
+    parser = argparse.ArgumentParser(description="Link input")
+
+    parser.add_argument("link", type=str)
+
+    ns = parser.parse_args()
+
     # Getting the .mp4 file from yt
 
-    yt = YouTube("https://www.youtube.com/watch?v=R8KrEo_tuYM&list=RDMM&index=29")
+    yt = YouTube(ns.link)
 
     stream = yt.streams.filter(
         only_audio=False, audio_codec="mp4a.40.2").order_by("abr").desc()
@@ -42,6 +49,8 @@ def main():
 
     artist = artist.strip()
     track = track.strip()
+
+    print("Downloading...")
 
     stream[0].download(filename=f"{track}.mp4")
 
