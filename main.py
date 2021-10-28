@@ -10,16 +10,38 @@ def main():
 
     # Getting the .mp4 file from yt
 
-    yt = YouTube("https://www.youtube.com/watch?v=MY8Es1ENZ2E")
+    yt = YouTube("https://www.youtube.com/watch?v=R8KrEo_tuYM&list=RDMM&index=29")
 
     stream = yt.streams.filter(
         only_audio=False, audio_codec="mp4a.40.2").order_by("abr").desc()
 
-    title = stream[0].title.split(" ")
+    title = stream[0].title
 
-    artist = title[0]
+    artist = ""
 
-    track = title[2]
+    track = ""
+
+    for char in title:
+        if char in "-":
+            break
+        artist = artist + char
+
+    broken = False
+
+    for char in title:
+        if char in "-":
+            broken = True
+            continue
+        if not broken:
+            continue
+        else:
+            if char in "[(":
+                break
+            else:
+                track = track + char
+
+    artist = artist.strip()
+    track = track.strip()
 
     stream[0].download(filename=f"{track}.mp4")
 
