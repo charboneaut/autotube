@@ -1,43 +1,61 @@
+import os
 from pytube.__main__ import YouTube
 import requests
-import os
-from mutagen.mp3 import MP3
 from mutagen.easyid3 import EasyID3
 from mutagen.id3 import ID3, APIC
-import re
 from moviepy.editor import VideoFileClip
 
+
 def main():
+
+    # Getting the .mp4 file from yt
+
     yt = YouTube("https://www.youtube.com/watch?v=MY8Es1ENZ2E")
-    
-    stream = yt.streams.filter(only_audio=False, audio_codec="mp4a.40.2").order_by("abr").desc()
 
-    artist = re.findall("^[a-z]*", stream[0].title, re.IGNORECASE)[0]
+    stream = yt.streams.filter(
+        only_audio=False, audio_codec="mp4a.40.2").order_by("abr").desc()
 
-    stream[0].download(filename=f"{artist}.mp4")
+    title = stream[0].title.split(" ")
 
-    video = VideoFileClip(f"{artist}.mp4")
+    artist = title[0]
+
+    track = title[2]
+
+    stream[0].download(filename=f"{track}.mp4")
+
+    # Converting file from .mp4 to .mp3
+
+    video = VideoFileClip(f"{track}.mp4")
 
     audio = video.audio
 
-    audio.write_audiofile(f"{artist}.mp3")
+    audio.write_audiofile(f"{track}.mp3")
 
     video.close()
 
     audio.close()
 
-    # img_data = requests.get(yt.thumbnail_url).content
+    # Applying APIC ID3 tag
 
-    audio = EasyID3(f"{artist}.mp3")
+    img_data = requests.get(yt.thumbnail_url).content
 
-    audio["artist"] = artist
+    audio = ID3(f"{track}.mp3")
 
-    
+    audio.add(APIC(mime="jpg", data=img_data, type=3))
 
-    audio.save()
+    audio.save(f"{track}.mp3")
 
+    # Applying easy tags
 
+    audio_e = EasyID3(f"{track}.mp3")
 
+    audio_e["artist"] = artist
+
+    audio_e["title"] = track
+
+    audio_e.save()
+
+    os.remove(f"{track}.mp4")
 
 
 if __name__ == "__main__":
