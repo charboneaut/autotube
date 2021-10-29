@@ -1,5 +1,6 @@
 import os
 import argparse
+import re
 from pytube.__main__ import YouTube
 import requests
 from mutagen.easyid3 import EasyID3
@@ -28,6 +29,12 @@ def main():
 
     track = ""
 
+    if title[0] == "[":
+        while title[0] != "-":
+            title = title[1:]
+        title = title[1:]
+        title = title.strip()
+
     for char in title:
         if char in "-":
             break
@@ -49,6 +56,11 @@ def main():
 
     artist = artist.strip()
     track = track.strip()
+
+    if "remix" in title or "Remix" in title:
+        rem = re.findall("[a-z]* remix", title, re.IGNORECASE)[0]
+        track = f"{track} - {rem}"
+        track = track.strip()
 
     print("Downloading...")
 
