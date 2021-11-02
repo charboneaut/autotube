@@ -1,8 +1,7 @@
 [tool.poetry]
-name = "pytube_stuff"
-version = "0.1.0"
-description = ""
-authors = ["Timothy Charboneau <charboneau@protonmail.ch>"]
+name = "autotube"
+version = "0.0.1"
+description = "does some yt stuff"
 
 [tool.poetry.dependencies]
 python = ">=3.7,<3.11"
