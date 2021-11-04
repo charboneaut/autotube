@@ -2,6 +2,7 @@
 name = "autotube"
 version = "0.0.1"
 description = "does some yt stuff"
+authors = ["charboneaut"]
 
 [tool.poetry.dependencies]
 python = ">=3.7,<3.11"
