@@ -17,24 +17,24 @@ it features
 1. install [git bash](https://gitforwindows.org/) and here's a [guide](https://www.makeuseof.com/install-git-git-bash-windows/)
 2. install [python for windows](https://www.python.org/downloads/windows/) another [guide](https://programmingwithjim.wordpress.com/2020/09/08/installing-python-3-in-git-bash-on-windows-10/)
 ## everyone else ##
-3. install [poetry](https://python-poetry.org/docs/), you're looking for the osx / linux / bashonwindows install instructions, prolly something like 
-\n`curl -sSl https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python -` but that link might change
+3. install [poetry](https://python-poetry.org/docs/), you're looking for the osx / linux / bashonwindows install instructions, prolly something like\
+`curl -sSl https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python -` but that link might change
 4. download the autotube zip file from github and extract its contents
-5. navigate to wherever you extracted the files in git bash, by default that would be
-\n`cd Downloads/autotube-master`
-6. install dependencies w/ poetry (may take a while, usually not more than 2-3 minutes)
-\n`poetry install`
-7. enable the virtual environment w/ poetry
-\n`poetry shell`
+5. navigate to wherever you extracted the files in git bash, by default that would be\
+`cd Downloads/autotube-master`
+6. install dependencies w/ poetry (may take a while, usually not more than 2-3 minutes)\
+`poetry install`
+7. enable the virtual environment w/ poetry\
+`poetry shell`
 8. go to "how to use" section
 
 # how to use #
 `python main.py <youtube link>`
 
 ## some options ##
-using the command above will prompt you with some questions about the link, prolly looks something like\n
+using the command above will prompt you with some questions about the link, prolly looks something like\
 `Is the song's title "September"? (y/n)`
-if you trust the script to figure these things you can pass a flag to silence them\n
+if you trust the script to figure these things you can pass a flag to silence them\
 `python main.py -s <youtube link>`
 
 
