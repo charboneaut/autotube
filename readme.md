@@ -33,7 +33,7 @@ it features
 
 ## some options ##
 using the command above will prompt you with some questions about the link, prolly looks something like\
-`Is the song's title "September"? (y/n)`
+`Is the song's title "September"? (y/n)`\
 if you trust the script to figure these things you can pass a flag to silence them\
 `python main.py -s <youtube link>`
 
