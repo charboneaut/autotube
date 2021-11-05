@@ -9,7 +9,7 @@ it features
 2. use poetry or preferred .toml reader to install dependencies
 `poetry install` if you're using poetry
 3. enable your virtual environment
-4. go to "how to use" section
+4. go to ["how to use" section](https://github.com/charboneaut/autotube#how-to-use)
 
 # instructions if you have no idea what you are doing #
 
@@ -26,7 +26,7 @@ it features
 `poetry install`
 7. enable the virtual environment w/ poetry\
 `poetry shell`
-8. go to "how to use" section
+8. go to ["how to use" section](https://github.com/charboneaut/autotube#how-to-use)
 
 # how to use #
 `python main.py <youtube link>`
