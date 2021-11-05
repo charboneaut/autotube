@@ -10,9 +10,11 @@ from moviepy.editor import VideoFileClip
 
 def main():
 
-    parser = argparse.ArgumentParser(description="Link input")
+    parser = argparse.ArgumentParser(description="Input the link that you want to download. Has some flags thay modify behavior.")
 
-    parser.add_argument("link", type=str)
+    parser.add_argument("-s", action="store_true", dest="silence", help="silences the prompts for title and artist")
+    parser.add_argument("link", type=str, help="yt link that you want to download")
+    
 
     ns = parser.parse_args()
 
@@ -61,6 +63,17 @@ def main():
         rem = re.findall("[a-z]* remix", title, re.IGNORECASE)[0]
         track = f"{track} - {rem}"
         track = track.strip()
+
+    if not ns.silence:
+        track_yea_or_nay = input(f"Is the song's title \"{track}\"? (y/n)")
+
+        if track_yea_or_nay.lower() != "y":
+            track = input("What is the song's title?")
+
+        artist_yea_or_nay = input(f"Is the song's artist \"{artist}\"? (y/n)")
+
+        if artist_yea_or_nay.lower() != "y":
+            artist = input("What is the song's artist?")
 
     print("Downloading...")
 
