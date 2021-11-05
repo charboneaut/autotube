@@ -113,6 +113,13 @@ def main():
 
     os.remove(f"{track}.mp4")
 
+    # windows likes to keep the thumbnail file around after downloading
+    for root, dir, files in os.walk("."):
+        if "Folder.jpg" in files:
+            os.remove("Folder.jpg")
+        if "AlbumArtSmall.jpg" in files:
+            os.remove("AlbumArtSmall.jpg")
+
 
 if __name__ == "__main__":
     main()
