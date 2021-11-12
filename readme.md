@@ -36,10 +36,10 @@ using the command above will prompt you with some questions about the link, prol
 `Is the song's title "September"? (y/n)`\
 if you trust the script to figure these things you can pass a flag to silence them\
 `python main.py -s <youtube link>`
-### downloading playlists ###\
+### downloading playlists
 `python main.py -p <youtube playlist link>`\
 the `-p` flag must be passed to download playlists\
-privated playlists won't download, make them unlisted or public\
+privated playlists won't download, make them unlisted or public
 
 flags can be mixed and matched either like `-sp` or `-s -p`\
 i'll prolly add some more options eventually
