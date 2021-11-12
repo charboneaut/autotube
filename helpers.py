@@ -11,6 +11,7 @@ def command_line_parser():
     parser = argparse.ArgumentParser(description="Input the link that you want to download. Has some flags thay modify behavior.")
     parser.add_argument("-s", action="store_true", dest="silence", help="silences the prompts for title and artist")
     parser.add_argument("link", type=str, help="yt link that you want to download")
+    parser.add_argument("-p", action="store_true", dest="playlist", help="explicitly enable playlist mode")
     return parser.parse_args()
 
 
@@ -65,13 +66,13 @@ def song_questionare(track_info, ns):
     if not ns.silence:
         track_yea_or_nay = input(f"Is the song's title \"{track}\"? (y/n)")
 
-    if track_yea_or_nay.lower() != "y":
-        track = input("What is the song's title?")
+        if track_yea_or_nay.lower() != "y":
+            track = input("What is the song's title?")
 
-    artist_yea_or_nay = input(f"Is the song's artist \"{artist}\"? (y/n)")
+        artist_yea_or_nay = input(f"Is the song's artist \"{artist}\"? (y/n)")
 
-    if artist_yea_or_nay.lower() != "y":
-        artist = input("What is the song's artist?")
+        if artist_yea_or_nay.lower() != "y":
+            artist = input("What is the song's artist?")
 
     return {"artist": artist, "track": track}
 
