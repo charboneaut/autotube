@@ -6,10 +6,10 @@ authors = ["charboneaut"]
 
 [tool.poetry.dependencies]
 python = ">=3.7,<3.11"
-pytube = "n"
 requests = "^2.26.0"
 mutagen = "^1.45.1"
 moviepy = "^1.0.3"
+pytube = "n"
 
 [tool.poetry.dev-dependencies]
 flake8 = "^4.0.1"

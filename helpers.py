@@ -69,10 +69,13 @@ def song_questionare(track_info, ns):
         if track_yea_or_nay.lower() != "y":
             track = input("What is the song's title?")
 
-        artist_yea_or_nay = input(f"Is the song's artist \"{artist}\"? (y/n)")
-
-        if artist_yea_or_nay.lower() != "y":
+        try:
+            artist_yea_or_nay = input(f"Is the song's artist \"{artist}\"? (y/n)")
+        except UnicodeEncodeError:
             artist = input("What is the song's artist?")
+        else:
+            if artist_yea_or_nay.lower() != "y":
+                artist = input("What is the song's artist?")
 
     return {"artist": artist, "track": track}
 
