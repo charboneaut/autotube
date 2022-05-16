@@ -65,7 +65,6 @@ def main(*args):
         with open("track.txt", "w") as file:
             file.write(f"{stream[0].title}\n{track}\n{artist}\n{yt.thumbnail_url}")
 
-        print("Downloading...")
         stream[0].download(filename=f"{track}.mp4")
 
     if ns:
