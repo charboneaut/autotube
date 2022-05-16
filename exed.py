@@ -1,4 +1,4 @@
-from tkinter import Tk, ttk, N, W, E, S, StringVar
+from tkinter import Tk, ttk, N, W, E, S, StringVar, filedialog
 from main import main
 
 root = Tk()
@@ -15,7 +15,18 @@ link_entry = ttk.Entry(mainframe, width=25, textvariable=link)
 link_entry.grid(column=1, row=1, sticky=(W), padx=3)
 
 ttk.Button(
-    mainframe, text="Download", command=lambda: main({"link": link.get(), "exe": True})
+    mainframe,
+    text="Download",
+    command=lambda: main({"link": link.get(), "exe": True, "dir": root.directory}),
 ).grid(column=2, row=1, sticky=(S, E))
+
+
+def get_dir():
+    root.directory = filedialog.askdirectory()
+
+
+ttk.Button(mainframe, text="Choose Destination...", command=get_dir).grid(
+    column=3, row=1
+)
 
 root.mainloop()

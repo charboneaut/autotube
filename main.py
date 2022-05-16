@@ -47,6 +47,9 @@ def main(*args):
             if "AlbumArtSmall.jpg" in files:
                 os.remove("AlbumArtSmall.jpg")
 
+        if args[0]["dir"]:
+            os.rename(f"{track}.mp3", f"{args[0]['dir']}\{track}.mp3")
+
     if ns:
         if ns.playlist:
             playlist = Playlist(ns.link)
