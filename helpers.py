@@ -3,15 +3,30 @@ import re
 import requests
 from mutagen.easyid3 import EasyID3
 from mutagen.id3 import ID3, APIC
-from moviepy.editor import VideoFileClip
+from moviepy.audio.io.AudioFileClip import AudioFileClip
 
 
-def command_line_parser():
+def command_line_parser(*args):
     # command arguments
-    parser = argparse.ArgumentParser(description="Input the link that you want to download. Has some flags thay modify behavior.")
-    parser.add_argument("-s", action="store_true", dest="silence", help="silences the prompts for title and artist")
+    args = args[0]
+    if args["exe"]:
+        return
+    parser = argparse.ArgumentParser(
+        description="Input the link that you want to download. Has some flags thay modify behavior."
+    )
+    parser.add_argument(
+        "-s",
+        action="store_true",
+        dest="silence",
+        help="silences the prompts for title and artist",
+    )
     parser.add_argument("link", type=str, help="yt link that you want to download")
-    parser.add_argument("-p", action="store_true", dest="playlist", help="explicitly enable playlist mode")
+    parser.add_argument(
+        "-p",
+        action="store_true",
+        dest="playlist",
+        help="explicitly enable playlist mode",
+    )
     return parser.parse_args()
 
 
@@ -62,15 +77,16 @@ def song_questionare(track_info, ns):
     replaces info from parse_track upon user request"""
     track = track_info["track"]
     artist = track_info["artist"]
-
+    if not ns:
+        return {"artist": artist, "track": track}
     if not ns.silence:
-        track_yea_or_nay = input(f"Is the song's title \"{track}\"? (y/n)")
+        track_yea_or_nay = input(f'Is the song\'s title "{track}"? (y/n)')
 
         if track_yea_or_nay.lower() != "y":
             track = input("What is the song's title?")
 
         try:
-            artist_yea_or_nay = input(f"Is the song's artist \"{artist}\"? (y/n)")
+            artist_yea_or_nay = input(f'Is the song\'s artist "{artist}"? (y/n)')
         except UnicodeEncodeError:
             artist = input("What is the song's artist?")
         else:
@@ -83,10 +99,8 @@ def song_questionare(track_info, ns):
 def mp4_to_mp3(track):
     """converts .mp4 videos to .mp3 files.
     doesn't work with .mp4 audio only files"""
-    video = VideoFileClip(f"{track}.mp4")
-    audio = video.audio
+    audio = AudioFileClip(f"{track}.mp4")
     audio.write_audiofile(f"{track}.mp3")
-    video.close()
     audio.close()
 
 

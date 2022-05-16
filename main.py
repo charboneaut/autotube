@@ -1,16 +1,26 @@
 import os
 from pytube.__main__ import YouTube
 from pytube import Playlist
-from helpers import command_line_parser, parse_title, song_questionare, mp4_to_mp3, apply_apic, apply_id3
+from helpers import (
+    command_line_parser,
+    parse_title,
+    song_questionare,
+    mp4_to_mp3,
+    apply_apic,
+    apply_id3,
+)
 
 
-def main():
-    ns = command_line_parser()
+def main(*args):
+    ns = command_line_parser(*args)
 
     def single_song(url):
         yt = YouTube(url)
-        stream = yt.streams.filter(
-            only_audio=False, audio_codec="mp4a.40.2").order_by("abr").desc()
+        stream = (
+            yt.streams.filter(only_audio=False, audio_codec="mp4a.40.2")
+            .order_by("abr")
+            .desc()
+        )
 
         track_info = parse_title(stream[0].title)
         track = track_info["track"]
@@ -37,13 +47,15 @@ def main():
             if "AlbumArtSmall.jpg" in files:
                 os.remove("AlbumArtSmall.jpg")
 
-
-    if ns.playlist:
-        playlist = Playlist(ns.link)
-        for url in playlist.video_urls:
-            single_song(url)
+    if ns:
+        if ns.playlist:
+            playlist = Playlist(ns.link)
+            for url in playlist.video_urls:
+                single_song(url)
+        else:
+            single_song(ns.link)
     else:
-        single_song(ns.link)
+        single_song(args[0]["link"])
 
 
 if __name__ == "__main__":
