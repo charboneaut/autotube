@@ -50,6 +50,24 @@ def main(*args):
         if args[0]["dir"]:
             os.rename(f"{track}.mp3", f"{args[0]['dir']}\{track}.mp3")
 
+    def single_song_exe_download(url):
+        yt = YouTube(url)
+        stream = (
+            yt.streams.filter(only_audio=False, audio_codec="mp4a.40.2")
+            .order_by("abr")
+            .desc()
+        )
+
+        track_info = parse_title(stream[0].title)
+        track = track_info["track"]
+        artist = track_info["artist"]
+
+        with open("track.txt", "w") as file:
+            file.write(f"{stream[0].title}\n{track}\n{artist}\n{yt.thumbnail_url}")
+
+        print("Downloading...")
+        stream[0].download(filename=f"{track}.mp4")
+
     if ns:
         if ns.playlist:
             playlist = Playlist(ns.link)
@@ -58,7 +76,7 @@ def main(*args):
         else:
             single_song(ns.link)
     else:
-        single_song(args[0]["link"])
+        single_song_exe_download(args[0]["link"])
 
 
 if __name__ == "__main__":

@@ -1,6 +1,7 @@
 import argparse
 import re
 import requests
+import os
 from mutagen.easyid3 import EasyID3
 from mutagen.id3 import ID3, APIC
 from moviepy.audio.io.AudioFileClip import AudioFileClip
@@ -122,3 +123,16 @@ def apply_id3(track_info):
     audio_e["artist"] = artist
     audio_e["title"] = track
     audio_e.save()
+
+
+def single_song_exe_save(track_info):
+    mp4_to_mp3(track_info["track"])
+
+    apply_apic(track_info["track"], track_info["url"])
+    apply_id3(track_info)
+
+    os.remove(f"{track_info['track']}.mp4")
+
+    os.rename(
+        f"{track_info['track']}.mp3", f"{track_info['dir']}\{track_info['track']}.mp3"
+    )
