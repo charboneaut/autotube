@@ -1,15 +1,4 @@
-from tkinter import (
-    NW,
-    Tk,
-    ttk,
-    N,
-    W,
-    E,
-    S,
-    StringVar,
-    filedialog,
-    Canvas,
-)
+from tkinter import NW, Tk, ttk, N, W, E, S, StringVar, filedialog, Canvas
 from main import main
 from helpers import single_song_exe_save
 from PIL import ImageTk
@@ -23,6 +12,7 @@ original_title = StringVar()
 track = StringVar()
 artist = StringVar()
 thumb = StringVar()
+desc = StringVar()
 
 mainframe = ttk.Frame(root, padding="6 6 6 6")
 mainframe.grid(column=0, row=0, sticky=(N, W, E, S))
@@ -45,17 +35,19 @@ def download_mp4_display():
         track.set(track_info[1])
         artist.set(track_info[2])
         thumb.set(track_info[3])
+        desc.set(track_info[4:])
 
     infowars = ttk.Frame(mainframe)
     infowars.grid(column=0, row=2, sticky=(N, W, E, S))
     ttk.Label(infowars, text="Track:").grid(column=0, row=0)
-    ttk.Label(infowars, text=f"{track.get()}?").grid(column=1, row=0, sticky=(W))
+    ttk.Entry(infowars, textvariable=track).grid(column=1, row=0, sticky=(W))
     ttk.Label(infowars, text="Artist:").grid(column=0, row=1)
-    ttk.Label(infowars, text=f"{artist.get()}?").grid(column=1, row=1, sticky=(W))
+    ttk.Entry(infowars, textvariable=artist).grid(column=1, row=1, sticky=(W))
     ttk.Label(infowars, text="Origin:").grid(column=0, row=2)
     ttk.Label(infowars, text=f"{original_title.get()}").grid(
         column=1, row=2, sticky=(W)
     )
+    ttk.Label(infowars, text=f"{desc.get()}", wraplength=300).grid(column=1, row=3)
     ttk.Button(mainframe, text="Save file...", command=save_file).grid(
         column=3, row=3, sticky=(S, E)
     )

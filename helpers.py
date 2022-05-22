@@ -65,10 +65,14 @@ def parse_title(title):
     artist = artist.strip()
     track = track.strip()
 
-    if "remix" in title or "Remix" in title:
-        rem = re.findall("[a-z]* remix", title, re.IGNORECASE)[0]
-        track = f"{track} - {rem}"
-        track = track.strip()
+    try:
+        if "remix" in title or "Remix" in title:
+            rem = re.findall("[a-z]* remix", title, re.IGNORECASE)[0]
+            track = f"{track} - {rem}"
+            track = track.strip()
+    except IndexError:
+        # in case remix is by itself in title
+        pass
 
     return {"artist": artist, "track": track}
 

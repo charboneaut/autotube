@@ -63,7 +63,12 @@ def main(*args):
         artist = track_info["artist"]
 
         with open("track.txt", "w") as file:
-            file.write(f"{stream[0].title}\n{track}\n{artist}\n{yt.thumbnail_url}")
+            file.write(f"{stream[0].title}\n{track}\n{artist}\n{yt.thumbnail_url}\n")
+            for letter in yt.description:
+                try:
+                    file.write(letter)
+                except UnicodeEncodeError:
+                    file.write("0")
 
         stream[0].download(filename=f"{track}.mp4")
 
