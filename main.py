@@ -47,7 +47,7 @@ def main(*args):
             if "AlbumArtSmall.jpg" in files:
                 os.remove("AlbumArtSmall.jpg")
 
-        if args[0]["dir"]:
+        if len(args) != 0 and args[0]["dir"]:
             os.rename(f"{track}.mp3", f"{args[0]['dir']}\{track}.mp3")
 
     def single_song_exe_download(url):

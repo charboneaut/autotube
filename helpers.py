@@ -9,8 +9,8 @@ from moviepy.audio.io.AudioFileClip import AudioFileClip
 
 def command_line_parser(*args):
     # command arguments
-    args = args[0]
-    if args["exe"]:
+    if len(args) != 0:
+        args = args[0]
         return
     parser = argparse.ArgumentParser(
         description="Input the link that you want to download. Has some flags thay modify behavior."
