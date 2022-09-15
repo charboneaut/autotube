@@ -104,7 +104,7 @@ def song_questionare(track_info, ns):
 def mp4_to_mp3(track):
     """converts .mp4 videos to .mp3 files.
     doesn't work with .mp4 audio only files"""
-    audio = AudioFileClip(f"{track}.mp4")
+    audio = AudioFileClip(f"track.mp4")
     audio.write_audiofile(f"{track}.mp3")
     audio.close()
 
@@ -135,7 +135,7 @@ def single_song_exe_save(track_info):
     apply_apic(track_info["track"], track_info["url"])
     apply_id3(track_info)
 
-    os.remove(f"{track_info['track']}.mp4")
+    os.remove(f"track.mp4")
 
     os.rename(
         f"{track_info['track']}.mp3", f"{track_info['dir']}\{track_info['track']}.mp3"

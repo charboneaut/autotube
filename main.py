@@ -70,7 +70,7 @@ def main(*args):
                 except UnicodeEncodeError:
                     file.write("0")
 
-        stream[0].download(filename=f"{track}.mp4")
+        stream[0].download(filename=f"track.mp4")
 
     if ns:
         if ns.playlist:
